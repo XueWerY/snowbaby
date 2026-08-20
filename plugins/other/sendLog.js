@@ -5,8 +5,8 @@ import lodash from "lodash"
 import moment from "moment"
 import { DATA_DIR } from "../../lib/config/config.js"
 
-/** 日志目录（data/<用户ID>/snowbaby/logs，与 log.js 保持一致） */
-const LOG_DIR = path.join(DATA_DIR, "logs")
+/** 日志目录（项目根下 logs，与 log.js 保持一致） */
+const LOG_DIR = path.join(process.cwd(), "logs")
 
 export class SendLog extends Plugin {
   constructor() {
