@@ -8,7 +8,7 @@ import fs from "node:fs/promises"
 import { readFileSync } from "node:fs"
 import path from "node:path"
 // 暂时保留对原config的兼容
-import cfg from "../../../lib/config/config.js"
+import cfg, { DATA_DIR } from "../../../lib/config/config.js"
 
 const _path = process.cwd()
 // mac地址
@@ -32,7 +32,7 @@ export default class Puppeteer extends Renderer {
     let localConfig = {}
     try {
       localConfig =
-        JSON.parse(readFileSync(path.join(process.env.ESD_DATA_DIR, "puppeteer.json"), "utf8")) || {}
+        JSON.parse(readFileSync(path.join(DATA_DIR, "puppeteer.json"), "utf8")) || {}
     } catch {}
 
     this.config = {

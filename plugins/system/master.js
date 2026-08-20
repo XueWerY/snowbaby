@@ -2,9 +2,10 @@ import Plugin from "../../lib/plugins/plugin.js"
 import fs from "node:fs/promises"
 import path from "node:path"
 import { ulid } from "ulid"
+import { DATA_DIR } from "../../lib/config/config.js"
 const code = {}
 /** 用户配置本地文件（按用户隔离，存于 ESD_DATA_DIR 数据目录下） */
-const file = path.join(process.env.ESD_DATA_DIR, "config.json")
+const file = path.join(DATA_DIR, "config.json")
 export class Master extends Plugin {
   constructor() {
     super({
