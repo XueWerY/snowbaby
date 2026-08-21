@@ -4,7 +4,7 @@ import { ulid } from "ulid"
 
 class OneBotv11Adapter {
   id = "QQ"
-  name = "OneBotv11"
+  name = "onebotv11"
   path = "onebot"
     echo = new Map()
     timeout = 60000
@@ -1030,6 +1030,14 @@ class OneBotv11Adapter {
         },
       }
 
+      const protocol = String(ws?.url?.split(":")[0] || "ws")
+      Bot.makeLog(
+        "mark",
+        `正在与 ${this.name} 建立 ${protocol} 连接`,
+        "Bot",
+        true,
+      )
+
       if (
         (data.bot.cookies["qun.qq.com"] = (
           await data.bot.sendApi("get_cookies", { domain: "qun.qq.com" }).catch(i => i.error)
@@ -1068,7 +1076,7 @@ class OneBotv11Adapter {
 
       Bot.makeLog(
         "mark",
-        `${this.name}(${this.id}) ${data.bot.version.version} 已连接`,
+        `${this.name}(${this.id}) 已连接，来自 NapCatQQ v${data.bot.version.app_version}`,
         data.self_id,
       )
       Bot.em(`connect.${data.self_id}`, data)
