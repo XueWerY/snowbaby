@@ -1034,7 +1034,7 @@ class OneBotv11Adapter {
       Bot.makeLog(
         "mark",
         `正在与 ${this.name} 建立 ${protocol} 连接`,
-        "Bot",
+        "WebSocket",
         true,
       )
 
@@ -1077,7 +1077,7 @@ class OneBotv11Adapter {
       Bot.makeLog(
         "mark",
         `${this.name}(${this.id}) 已连接，来自 NapCatQQ v${data.bot.version.app_version}`,
-        data.self_id,
+        "WebSocket",
       )
       Bot.em(`connect.${data.self_id}`, data)
     }
