@@ -1295,7 +1295,6 @@ class OneBotv11Adapter {
               data.notice_type = "input"
               data.end ??= data.event_type !== 1
               data.message ||= data.status_text || `对方${data.end ? "结束" : "正在"}输入...`
-              Bot.makeLog("info", data.message, `${data.self_id} <= ${data.user_id}`, true)
               break
             case "profile_like":
               Bot.makeLog(
