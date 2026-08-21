@@ -1074,6 +1074,10 @@ class OneBotv11Adapter {
       Bot.em(`connect.${data.self_id}`, data)
     }
 
+    nameID(id, name) {
+      return name ? `(${name})${id}` : String(id)
+    }
+
     makeMessage(data) {
       data.message = this.parseMsg(data.message)
       switch (data.message_type) {
@@ -1082,8 +1086,8 @@ class OneBotv11Adapter {
             data.sender.card || data.sender.nickname || data.bot.fl.get(data.user_id)?.nickname
           Bot.makeLog(
             "info",
-            `好友消息：${name ? `[${name}] ` : ""}${data.raw_message}`,
-            `${data.self_id} <= ${data.user_id}`,
+            `好友消息：${data.raw_message}`,
+            `${this.nameID(data.self_id, data.bot.nickname)} <= ${this.nameID(data.user_id, name)}`,
             true,
           )
           break
@@ -1098,8 +1102,8 @@ class OneBotv11Adapter {
           }
           Bot.makeLog(
             "info",
-            `群消息：${user_name ? `[${group_name ? `${group_name}, ` : ""}${user_name}] ` : ""}${data.raw_message}`,
-            `${data.self_id} <= ${data.group_id}, ${data.user_id}`,
+            `群消息：${data.raw_message}`,
+            `${this.nameID(data.self_id, data.bot.nickname)} <= ${this.nameID(data.group_id, group_name)}, ${this.nameID(data.user_id, user_name)}`,
             true,
           )
           break
@@ -1107,10 +1111,11 @@ class OneBotv11Adapter {
         case "guild":
           data.message_type = "group"
           data.group_id = `${data.guild_id}-${data.channel_id}`
+          const guild_name = data.group_name || data.bot.gl.get(data.group_id)?.group_name
           Bot.makeLog(
             "info",
-            `频道消息：[${data.sender.nickname}] ${Bot.String(data.message)}`,
-            `${data.self_id} <= ${data.group_id}, ${data.user_id}`,
+            `频道消息：${Bot.String(data.message)}`,
+            `${this.nameID(data.self_id, data.bot.nickname)} <= ${this.nameID(data.group_id, guild_name)}, ${this.nameID(data.user_id, data.sender.nickname)}`,
             true,
           )
           Object.defineProperty(data, "friend", {
